@@ -1,11 +1,11 @@
 extern crate diesel;
 extern crate rust_web;
 
-use rust_web::*;
-use self::models::{Post, NewPost};
+use self::models::{NewPost, Post};
 use diesel::prelude::*;
+use rust_web::*;
 
-use actix_web::{web, App, HttpResponse, HttpServer, Responder, HttpRequest};
+use actix_web::{web, App, HttpRequest, HttpResponse, HttpServer, Responder};
 
 fn index() -> impl Responder {
     HttpResponse::Ok().body("Hello world!")
@@ -30,7 +30,8 @@ fn posts_show(req: HttpRequest) -> impl Responder {
 
     let id: i32 = req.match_info().get("id").unwrap().parse().unwrap();
     let connection = establish_connection();
-    let post = posts.find(id)
+    let post = posts
+        .find(id)
         .first::<Post>(&connection)
         .expect("Error finding posts");
     let res = format!("Show {}", post.id);
