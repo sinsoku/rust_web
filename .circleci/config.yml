@@ -2,12 +2,11 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: rust
+      - image: circleci/rust
         environment:
           DATABASE_URL: test.sqlite3
     steps:
       - checkout
-      - run: rustup component add rustfmt
       - run: cargo fmt -- --check
       - run: cargo install diesel_cli
       - run: diesel setup
