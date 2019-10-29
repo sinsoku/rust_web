@@ -67,3 +67,23 @@ impl Post {
             .expect("Error deleting posts");
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn unit_sample() {
+        let post = Post {
+            id: 1,
+            title: "title".to_string(),
+            body: "body".to_string(),
+            published: false,
+        };
+
+        assert_eq!(post.id, 1);
+        assert_eq!(post.title, "title");
+        assert_eq!(post.body, "body");
+        assert_eq!(post.published, false);
+    }
+}
