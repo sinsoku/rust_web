@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/sinsoku/rust_web.svg?style=svg&circle-token=f2d7ec9fce88998e3c6b551184ef8c4ab2b7ab8d)](https://circleci.com/gh/sinsoku/rust_web)
+
 # Web App with Rust
 
 ## Setup
