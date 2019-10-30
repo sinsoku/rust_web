@@ -2,8 +2,9 @@ use super::util::establish_connection;
 use crate::schema::posts;
 use crate::schema::posts::dsl;
 use diesel::prelude::*;
+use serde::{Deserialize, Serialize};
 
-#[derive(Queryable)]
+#[derive(Queryable, Serialize, Deserialize)]
 pub struct Post {
     pub id: i32,
     pub title: String,
@@ -20,6 +21,13 @@ struct NewPost<'a> {
 
 impl Post {
     pub fn all() -> Vec<Post> {
+        let connection = establish_connection();
+        dsl::posts
+            .load::<Post>(&connection)
+            .expect("Error loading posts")
+    }
+
+    pub fn published_all() -> Vec<Post> {
         let connection = establish_connection();
         dsl::posts
             .filter(dsl::published.eq(true))

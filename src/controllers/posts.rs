@@ -2,7 +2,7 @@ use crate::models::Post;
 use actix_web::{HttpRequest, HttpResponse, Responder};
 
 pub fn index() -> impl Responder {
-    let results = Post::all();
+    let results = Post::published_all();
     let res = format!("Displaying {} posts", results.len());
 
     HttpResponse::Ok().body(res)
@@ -11,6 +11,13 @@ pub fn index() -> impl Responder {
 pub fn show(req: HttpRequest) -> impl Responder {
     let post = find_post(req);
     let res = format!("Show {}", post.id);
+
+    HttpResponse::Ok().body(res)
+}
+
+pub fn show_json(req: HttpRequest) -> impl Responder {
+    let post = find_post(req);
+    let res = serde_json::to_string(&post).unwrap();
 
     HttpResponse::Ok().body(res)
 }

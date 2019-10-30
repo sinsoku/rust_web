@@ -7,6 +7,7 @@ pub fn top(cfg: &mut web::ServiceConfig) {
 
 pub fn posts(cfg: &mut web::ServiceConfig) {
     cfg.route("/posts", web::get().to(posts::index))
+        .route("/posts/{id}.json", web::get().to(posts::show_json))
         .route("/posts/{id}", web::get().to(posts::show))
         .route("/posts", web::post().to(posts::create))
         .route("/posts/{id}", web::put().to(posts::update))
